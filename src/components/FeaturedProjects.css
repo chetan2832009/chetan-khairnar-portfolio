@@ -1,0 +1,325 @@
+.featured-projects {
+  position: relative;
+  width: 100%;
+  padding: 120px 6%;
+  background: #FAF9F7;
+  color: #171717;
+  overflow: hidden;
+}
+
+.featured-projects-heading {
+  max-width: 900px;
+  margin: 0 auto 100px;
+  text-align: center;
+}
+
+.featured-projects-label,
+.case-study-eyebrow,
+.case-study-small-label {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.featured-projects-label { color: #F43F70; }
+
+.featured-projects-heading h2 {
+  margin: 22px 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 500;
+  letter-spacing: -4px;
+}
+
+.featured-projects-heading h2 span { color: #F43F70; }
+
+.featured-projects-heading p {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  color: #777;
+}
+
+.featured-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 55px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.case-study { width: 100%; perspective: 1500px; }
+.case-study-scene { width: 100%; height: 530px; perspective: 1500px; }
+
+.case-study-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.case-study-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 25px;
+  background: #171717;
+  color: #FAF9F7;
+  border-radius: 5px;
+  transform: translateZ(-18px);
+  font: 700 10px "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 2px;
+}
+
+.case-study-inner {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  background: #E9E9E7;
+  border: 1px solid rgba(23, 23, 23, 0.12);
+  border-radius: 5px;
+  transform: translateZ(0);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.8s ease;
+}
+
+.case-study-inner-content {
+  height: 100%;
+  overflow-y: auto;
+  padding: 30px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.case-study-inner h3 {
+  margin: 12px 0;
+  font: 500 38px "Fraunces", serif;
+}
+
+.case-study-tagline { font-size: 13px; font-weight: 700; }
+
+.case-study-description {
+  max-width: 420px;
+  margin: 15px 0 25px;
+  color: #555;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.case-study-small-label {
+  display: block;
+  grid-column: 1 / -1;
+  margin-bottom: 12px;
+  color: #777;
+}
+
+.case-study-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.case-study-feature {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 10px;
+}
+
+.case-study-feature span { color: #F43F70; }
+
+.case-study-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.case-study-tech span {
+  padding: 7px 10px;
+  border: 1px solid rgba(23, 23, 23, 0.2);
+  border-radius: 30px;
+  font-size: 9px;
+}
+
+.case-study-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.case-study-gallery img {
+  width: 100%;
+  height: 85px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid rgba(23, 23, 23, 0.1);
+}
+
+.case-study-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(23, 23, 23, 0.15);
+}
+
+.case-study-status {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.case-study-link {
+  color: #171717;
+  font-size: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid #F43F70;
+  padding-bottom: 4px;
+}
+
+.case-study-front {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  background: #E9E9E7;
+  border: 1px solid rgba(23, 23, 23, 0.15);
+  border-radius: 5px;
+  transform-origin: left center;
+  transform: translateZ(22px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.85s cubic-bezier(0.2, 0.75, 0.25, 1), box-shadow 0.85s ease;
+}
+
+.case-study-front-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font: 700 9px "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 1px;
+}
+
+.case-study-cover-image {
+  flex: 1;
+  min-height: 0;
+  margin: 22px 0;
+  overflow: hidden;
+  background: #FAF9F7;
+}
+
+.case-study-cover-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.case-study-cover-fallback {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: #171717;
+  font: 500 36px "Fraunces", serif;
+}
+
+.case-study-cover-fallback small {
+  font: 700 9px "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 2px;
+  color: #777;
+}
+
+.case-study-front-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.case-study-front-bottom h2 {
+  margin: 9px 0;
+  font: 500 clamp(30px, 4vw, 46px) "Fraunces", serif;
+}
+
+.case-study-front-bottom p {
+  margin: 0;
+  font: 11px "Plus Jakarta Sans", sans-serif;
+  color: #555;
+}
+
+.case-study-open {
+  flex-shrink: 0;
+  color: #F43F70;
+  font: 700 10px "Plus Jakarta Sans", sans-serif;
+}
+
+.case-study-hover-hint {
+  margin-top: 20px;
+  text-align: right;
+  font: 700 8px "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 2px;
+  color: #777;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-study:hover .case-study-front,
+  .case-study:focus-within .case-study-front {
+    transform: translateZ(35px) rotateY(-115deg);
+    box-shadow: 15px 10px 35px rgba(23, 23, 23, 0.15);
+  }
+
+  .case-study:hover .case-study-inner,
+  .case-study:focus-within .case-study-inner {
+    transform: translateX(18px) translateZ(45px) rotateY(-3deg);
+    box-shadow: 10px 15px 35px rgba(23, 23, 23, 0.1);
+  }
+
+  .case-study:hover .case-study-cover-image img { transform: scale(1.04); }
+}
+
+.featured-projects-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  max-width: 1200px;
+  margin: 90px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid #E9E9E7;
+  color: #777;
+  font: 700 9px "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 1.5px;
+}
+
+@media (max-width: 800px) {
+  .featured-projects { padding: 90px 6%; }
+  .featured-projects-grid { grid-template-columns: 1fr; gap: 55px; }
+  .case-study-scene { height: 520px; }
+  .featured-projects-heading { margin-bottom: 65px; }
+}
+
+@media (max-width: 480px) {
+  .case-study-scene { height: 490px; }
+  .case-study-inner-content { padding: 20px; }
+  .case-study-front { padding: 17px; }
+  .case-study-features { grid-template-columns: 1fr; }
+  .featured-projects-footer { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-study-front, .case-study-inner, .case-study-cover-image img { transition: none; }
+}

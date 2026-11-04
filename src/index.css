@@ -1,0 +1,48 @@
+:root {
+  --warm-white: #FAF9F7;
+  --charcoal: #171717;
+  --hot-pink: #F43F70;
+  --light-grey: #E9E9E7;
+  --soft-pink: #F8DDE5;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--warm-white);
+  color: var(--charcoal);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+.hero-main { display: flex; flex-direction: column; }
+.hero-image-wrap { flex: 1 1 auto; min-height: 0; position: relative; }
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 48px;
+  transform: translateY(-50%);
+  color: var(--charcoal);
+  z-index: 5;
+  pointer-events: none;
+  max-width: 420;
+}
+
+@media (max-width: 768px) {
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 24px;
+    transform: translateY(-50%);
+    color: var(--charcoal);
+    z-index: 5;
+    pointer-events: none;
+    max-width: 60%;
+    text-shadow: 0 1px 2px rgba(250,249,247,0.6);
+  }
+}

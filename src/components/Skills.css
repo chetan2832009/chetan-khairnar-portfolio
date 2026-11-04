@@ -1,0 +1,659 @@
+/* ==========================================================================
+   THE INTERACTIVE SKILL ORBIT
+   Design System:
+   --warm-white: #FAF9F7 (Paper background)
+   --charcoal:   #171717 (Editorial Ink)
+   --hot-pink:   #F43F70 (Vibrant Brand Accent)
+   --soft-pink:  #F8DDE5 (Soft Tint Highlight)
+   --soft-grey:  #E9E9E7 (Delicate Boundary Lines)
+   ========================================================================== */
+
+/* Outer scroll runway for smooth scroll-driven interpolation */
+.orbit-scroll-section {
+  position: relative;
+  width: 100%;
+  height: 420vh; /* Controlled runway for 4 graceful stages */
+  background: var(--warm-white, #FAF9F7);
+  color: var(--charcoal, #171717);
+  box-sizing: border-box;
+  overflow: clip;
+}
+
+/* Sticky viewport pinned to view while scrolling through the orbit */
+.orbit-sticky-viewport {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 32px 48px;
+}
+
+/* --------------------------------------------------------------------------
+   1. EDITORIAL ORBITAL GEOMETRY LAYER (Clean, delicate lines matching AboutMe orbits)
+   -------------------------------------------------------------------------- */
+.orbit-geometry-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(23, 23, 23, 0.06);
+  pointer-events: none;
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.ring-inner {
+  width: 480px;
+  height: 480px;
+  border-color: rgba(244, 63, 112, 0.22);
+}
+
+.ring-middle {
+  width: 780px;
+  height: 780px;
+  border-style: dashed;
+  border-color: rgba(23, 23, 23, 0.08);
+}
+
+.ring-outer {
+  width: 1080px;
+  height: 1080px;
+  border-color: rgba(23, 23, 23, 0.04);
+}
+
+/* Architectural crosshairs matching editorial design */
+.orbit-crosshair {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  opacity: 0.35;
+}
+.orbit-crosshair::before,
+.orbit-crosshair::after {
+  content: '';
+  position: absolute;
+  background: var(--charcoal, #171717);
+}
+.orbit-crosshair::before {
+  top: 3.5px;
+  left: 0;
+  width: 8px;
+  height: 1px;
+}
+.orbit-crosshair::after {
+  top: 0;
+  left: 3.5px;
+  width: 1px;
+  height: 8px;
+}
+
+.ch-tl { top: 40px; left: 48px; }
+.ch-tr { top: 40px; right: 48px; }
+.ch-bl { bottom: 40px; left: 48px; }
+.ch-br { bottom: 40px; right: 48px; }
+
+/* --------------------------------------------------------------------------
+   2. TOP EDITORIAL HEADER & STAGE PILLS
+   -------------------------------------------------------------------------- */
+.orbit-top-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.orbit-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  color: #71717a;
+  text-transform: uppercase;
+}
+
+.orbit-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hot-pink, #F43F70);
+  box-shadow: 0 0 8px rgba(244, 63, 112, 0.5);
+}
+
+.orbit-eyebrow-divider {
+  color: #d4d4d8;
+}
+
+.orbit-eyebrow-tag {
+  color: var(--hot-pink, #F43F70);
+}
+
+/* Stage Navigation Pills */
+.orbit-stage-pills {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  box-shadow: 0 4px 16px rgba(23, 23, 23, 0.03);
+}
+
+.orbit-stage-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-family: inherit;
+  transition: all 0.25s ease;
+}
+
+.pill-num {
+  font-size: 10px;
+  font-weight: 800;
+  color: #a1a1aa;
+}
+
+.pill-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #71717a;
+}
+
+.orbit-stage-pill.is-active {
+  background: var(--charcoal, #171717);
+}
+
+.orbit-stage-pill.is-active .pill-num {
+  color: var(--hot-pink, #F43F70);
+}
+
+.orbit-stage-pill.is-active .pill-text {
+  color: #FAF9F7;
+}
+
+.pill-sep {
+  width: 12px;
+  height: 1px;
+  background: #e4e4e7;
+}
+
+/* --------------------------------------------------------------------------
+   3. STAGE CANVAS & CENTRAL HEADING
+   -------------------------------------------------------------------------- */
+.orbit-stage-canvas {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+  z-index: 5;
+}
+
+/* Large Expressive Typography Heading */
+.orbit-central-heading-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  max-width: 680px;
+  pointer-events: none;
+  z-index: 5;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.25s ease;
+}
+
+.orbit-main-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(38px, 5.2vw, 68px);
+  font-weight: 500;
+  letter-spacing: -2px;
+  line-height: 0.96;
+  color: var(--charcoal, #171717);
+  margin: 0 0 14px 0;
+}
+
+.orbit-title-accent {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--hot-pink, #F43F70);
+}
+
+.orbit-caption-text {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #71717a;
+  margin: 0 auto;
+  max-width: 440px;
+}
+
+/* --------------------------------------------------------------------------
+   4. FOCAL SPOTLIGHT CARD (Stage 3 Transformation)
+   -------------------------------------------------------------------------- */
+.orbit-focal-spotlight {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 420px;
+  padding: 28px 32px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid rgba(244, 63, 112, 0.25);
+  box-shadow: 0 24px 60px -12px rgba(23, 23, 23, 0.12),
+              0 0 0 1px rgba(244, 63, 112, 0.15);
+  text-align: center;
+  z-index: 20;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.focal-category-pill {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--hot-pink, #F43F70);
+  background: var(--soft-pink, #F8DDE5);
+  padding: 3px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.focal-headline {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--charcoal, #171717);
+  margin-bottom: 10px;
+}
+
+.focal-annotation {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #52525b;
+  margin: 0 0 16px 0;
+}
+
+.focal-companions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.companion-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--charcoal, #171717);
+  background: #FAF9F7;
+  border: 1px solid #e4e4e7;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   5. 3D TYPOGRAPHIC ORBITING SKILL NODES
+   -------------------------------------------------------------------------- */
+.orbit-typographic-system {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+
+.orbit-skill-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.skill-typography-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(250, 249, 247, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid transparent;
+  transition: all 0.25s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.skill-node-bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #a1a1aa;
+  transition: all 0.25s ease;
+  align-self: center;
+}
+
+.skill-typography-text {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--charcoal, #171717);
+  transition: color 0.25s ease;
+}
+
+.skill-category-label {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.25s ease;
+}
+
+/* Subtle Pink Accent highlights */
+.orbit-skill-node.is-accent .skill-typography-text {
+  color: var(--charcoal, #171717);
+  border-bottom: 2px solid var(--hot-pink, #F43F70);
+}
+
+.orbit-skill-node.is-accent .skill-node-bullet {
+  background: var(--hot-pink, #F43F70);
+  box-shadow: 0 0 6px rgba(244, 63, 112, 0.6);
+}
+
+/* Hover State */
+.orbit-skill-node:hover .skill-typography-wrap {
+  background: #ffffff;
+  border-color: rgba(244, 63, 112, 0.4);
+  box-shadow: 0 8px 24px rgba(23, 23, 23, 0.08);
+  transform: scale(1.06);
+}
+
+.orbit-skill-node:hover .skill-category-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--hot-pink, #F43F70);
+}
+
+.orbit-skill-node:hover .skill-node-bullet {
+  background: var(--hot-pink, #F43F70);
+}
+
+/* Selected / Focused State */
+.orbit-skill-node.is-selected .skill-typography-wrap {
+  background: #ffffff;
+  border-color: var(--hot-pink, #F43F70);
+  box-shadow: 0 12px 32px rgba(244, 63, 112, 0.25);
+  transform: scale(1.12);
+}
+
+.orbit-skill-node.is-selected .skill-typography-text {
+  color: var(--hot-pink, #F43F70);
+}
+
+/* Dimming */
+.orbit-skill-node.is-dimmed {
+  filter: grayscale(80%);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. BOTTOM CATEGORY FILTER & STATUS BAR
+   -------------------------------------------------------------------------- */
+.orbit-bottom-bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 12px;
+}
+
+.orbit-category-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  box-shadow: 0 4px 14px rgba(23, 23, 23, 0.03);
+}
+
+.orbit-cat-btn {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #71717a;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.orbit-cat-btn:hover {
+  color: var(--charcoal, #171717);
+}
+
+.orbit-cat-btn.is-active {
+  background: var(--charcoal, #171717);
+  color: #FAF9F7;
+}
+
+.orbit-footer-status {
+  display: flex;
+  align-items: center;
+}
+
+.orbit-scroll-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #a1a1aa;
+}
+
+.hint-glyph {
+  color: var(--hot-pink, #F43F70);
+  font-size: 10px;
+}
+
+.orbit-focus-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  padding: 5px 14px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(23, 23, 23, 0.06),
+              0 0 0 1px rgba(244, 63, 112, 0.3);
+  animation: pillIn 0.25s ease;
+}
+
+@keyframes pillIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.focus-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hot-pink, #F43F70);
+}
+
+.focus-cat {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #71717a;
+  text-transform: uppercase;
+}
+
+.focus-sep {
+  color: #d4d4d8;
+}
+
+.focus-title {
+  font-size: 12.5px;
+  color: var(--charcoal, #171717);
+}
+
+.focus-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 10px;
+  color: #a1a1aa;
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 4px;
+}
+.focus-close-btn:hover {
+  color: var(--charcoal, #171717);
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVE DESIGN & ACCESSIBILITY
+   -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .orbit-sticky-viewport {
+    padding: 24px 24px;
+  }
+  .orbit-caption-text {
+    display: none;
+  }
+  .orbit-focal-spotlight {
+    width: 340px;
+    padding: 20px 24px;
+  }
+  .focal-headline {
+    font-size: 22px;
+  }
+  .skill-typography-text {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .orbit-scroll-section {
+    height: 340vh;
+  }
+  .orbit-sticky-viewport {
+    padding: 16px;
+  }
+  .orbit-stage-pills {
+    display: none;
+  }
+  .orbit-main-title {
+    font-size: 32px;
+  }
+  .orbit-focal-spotlight {
+    width: 280px;
+    padding: 16px 18px;
+  }
+  .focal-headline {
+    font-size: 18px;
+  }
+  .focal-annotation {
+    font-size: 10.5px;
+  }
+  .skill-typography-text {
+    font-size: 18px;
+  }
+  .orbit-bottom-bar {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+  .orbit-scroll-hint {
+    font-size: 9.5px;
+  }
+  .orbit-cat-btn {
+    font-size: 9.5px;
+    padding: 4px 8px;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-scroll-section {
+    height: auto;
+  }
+  .orbit-sticky-viewport {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+  .orbit-stage-canvas {
+    perspective: none;
+  }
+  .orbit-geometry-layer {
+    display: none;
+  }
+  .orbit-central-heading-wrap {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none !important;
+    margin-bottom: 40px;
+  }
+  .orbit-typographic-system {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  .orbit-skill-node {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none !important;
+  }
+  .orbit-focal-spotlight {
+    display: none;
+  }
+}
